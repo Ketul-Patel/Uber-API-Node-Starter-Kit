@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Uber App</title>
+</head>
+<body>
+	<h2>Uber App</h2>
+	<h4>You are now authenticated within Uber.</h4>
+	<h4>Sample Endpoints:</h4>
+	<p><a href="/profile">Profile</a></p>
+	<p><a href="/history">History</a></p>
+	<div id="location">
+		<p>Loading geolocation...</p>
+	</div>
+	<p><a href="/logout">Logout</a></p>
+
+	<script type="text/javascript">
+
+	var locationDiv = document.getElementById("location");
+
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(showPosition);
+	} else {
+    var toSet = "";
+		toSet = "Geolocation not supported input your own starting and ending coordinates below";
+    toSet += "<form action='/request' method='POST'>";
+    toSet += "Starting Latitude:<input type='text' name='start_latitude'>";
+    toSet += "Starting Longitude:<input type='text' name='start_longitude'>";
+    toSet += "Ending Latitude:<input type='text' name='end_latitude'>";
+    toSet += "Ending Longitude:<input type='text' name='end_longitude'>";
+    toSet += "</form>";
+    locationDiv.innerHTML = toSet;
+	}
+
+	function showPosition(position) {
+    var toSet = "";
+		toSet = "<p>Latitude: <strong>" + position.coords.latitude.toFixed(5) + "</strong>, Longitude: <strong>" + position.coords.longitude.toFixed(5) + "</strong>";
+		toSet += "<form action='/request' method='POST'>";
+    toSet += "<input type='hidden' name='start_latitude' value='" + position.coords.latitude.toFixed(5) + "'>";
+    toSet += "<input type='hidden' name='start_longitude' value='" + position.coords.longitude.toFixed(5) + "'>";
+    toSet += "Ending latitude:<input type='text' name='end_latitude'>";
+    toSet += "Ending longitude:<input type='text' name='end_longitude'>";
+    toSet += "<input type='submit' value='Request Uber!'>"
+    toSet += "</form>";
+    locationDiv.innerHTML = toSet;
+	}
+
+	</script>
+</body>
+</html>
