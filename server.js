@@ -10,7 +10,7 @@ var app = express();
 var config = require('./config.js');
 // Get all auth stuff from config file
 // ClientID & ClientSecret for API requests with OAUTH
-var clientID = sonfig.ClientID;
+var clientID = config.ClientID;
 var clientSecret = config.ClientSecret;
 // ServerID for API requests without OAUTH
 var ServerID = config.ServerID;
